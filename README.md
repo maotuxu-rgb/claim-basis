@@ -105,7 +105,7 @@ git clone https://github.com/maotuxu-rgb/contract-claim-basis.git ~/.claude/skil
 
 ## &#128196; 案例展示
 
-以下是一个完整的分析示例，展示本技能对多层转租纠纷的请求权基础分析过程。
+以下是一个完整的分析示例。案例事实改编自吴香香老师《民法典请求权基础——方法、体系与实例》，分析报告由本 Skill 独立生成，不代表原著观点。
 
 <details>
 <summary><strong>&#128270; 商铺转租链案：史某收回房屋的请求权基础分析（点击展开）</strong></summary>
