@@ -1,6 +1,6 @@
-# 合同法请求权基础
+# contract-claim-basis
 
-Claude Code 自定义技能：基于请求权基础方法，对《民法典》合同编（第463—988条）纠纷进行结构化分析。
+Claude Code custom skill for structured claim-basis analysis under the Contract Book of the Chinese Civil Code (Articles 463–988).
 
 ## Structure
 

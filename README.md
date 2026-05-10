@@ -1,4 +1,6 @@
-# 合同法请求权基础
+# contract-claim-basis
+
+> **合同法请求权基础 Skill** — 基于请求权基础（Anspruchsgrundlage）方法，对《民法典》合同编纠纷进行结构化分析的 Claude Code 自定义技能。
 
 Claude Code 自定义技能：基于请求权基础方法，对《民法典》合同编（第463—988条）纠纷进行结构化分析。
 
