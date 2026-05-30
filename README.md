@@ -5,7 +5,7 @@
 <p align="center">
   <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/"><img src="https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg" alt="License CC BY-NC-SA 4.0"></a>
   <img src="https://img.shields.io/badge/Claude%20Code-Skill-7c3aed" alt="Claude Code Skill">
-  <img src="https://img.shields.io/badge/%E6%B0%91%E6%B3%95%E5%85%B8-Art.%20463--988-blue" alt="Civil Code Art. 463-988">
+  <img src="https://img.shields.io/badge/%E6%B0%91%E6%B3%95%E5%85%B8-%E5%90%88%E5%90%8C%C2%B7%E7%89%A9%E6%9D%83%C2%B7%E4%BE%B5%E6%9D%83-blue" alt="Civil Code: Contract / Property / Tort">
 </p>
 
 <br>
@@ -71,7 +71,12 @@ git clone https://github.com/maotuxu-rgb/contract-claim-basis.git ~/.claude/skil
 4. 处理请求权竞合（特别法优先、合同吸收等）
 5. 输出结构化分析报告
 
-覆盖的请求权类型包括：合同履行、违约赔偿、合同解除与恢复原状、合同无效/撤销后返还与折价补偿、缔约过失、不当得利，以及违约方申请司法解除（第580条第2款）等争议场景。
+覆盖的请求权类型包括：
+
+- **合同编**：合同履行、违约赔偿、合同解除与恢复原状、合同无效/撤销后返还与折价补偿、缔约过失，以及违约方申请司法解除（第580条第2款）等争议场景
+- **物权编**：返还原物（第235条）、占有保护（第462条）、善意取得（第311—313条）、添附、占有回复关系（孳息/费用/毁损，第458—461条）
+- **侵权编**：过错/无过错侵权（第1165/1166条）、第三人侵害债权、数人侵权责任形态（连带/按份，第1168—1172条）、与有过失（第1173条）、损害赔偿计算（第1182/1184条）
+- **准合同**：无因管理（第979条）、不当得利（第985条）
 
 ---
 
@@ -330,12 +335,15 @@ git clone https://github.com/maotuxu-rgb/contract-claim-basis.git ~/.claude/skil
 
 ```
 contract-claim-basis/
-  SKILL.md              -- 技能定义（分析框架 + 请求权基础目录 + 竞合规则）
+  SKILL.md              -- 导航层（分析框架 + 请求权基础总索引 + 路由表 + 竞合规则）
   CLAUDE.md             -- 项目说明
   references/
     ref-norm-types.md           -- 18类规范类型操作指南
     report-template.md          -- 分析报告模板
     ref-case-examples.md        -- 典型案例场景分析范本
+    ref-contract-claims.md      -- 合同编通则/典型合同 + 准合同目录
+    ref-property-rights.md      -- 物权编请求权基础（返还原物/占有/善意取得）
+    ref-tort-liability.md       -- 侵权编请求权基础（过错/数人侵权/损害赔偿）
     ref-contracting-construction.md  -- 承揽 + 建设工程合同条文
     ref-transport.md            -- 运输合同条文
     ref-technology.md           -- 技术合同条文
