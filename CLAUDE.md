@@ -1,4 +1,4 @@
-# contract-claim-basis
+# claim-basis
 
 Claude Code custom skill for structured claim-basis (Anspruchsgrundlage) analysis under the Chinese Civil Code. Originally scoped to the Contract Book (Articles 463–988), now also covers the **Property Book** (返还原物、占有保护、善意取得、占有回复) and the **Tort Liability Book** (过错/无过错侵权、数人侵权、第三人侵害债权、损害赔偿计算), plus quasi-contract (无因管理、不当得利) and related General-Part rules (第157条等).
 

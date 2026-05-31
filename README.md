@@ -1,4 +1,4 @@
-<h1 align="center">&#9878;&#65039; contract-claim-basis</h1>
+<h1 align="center">&#9878;&#65039; claim-basis</h1>
 
 <p align="center"><strong>合同法请求权基础 Skill &mdash; 给法学学习者的 AI 分析副驾驶</strong></p>
 
@@ -48,7 +48,7 @@
 将本仓库克隆到 Claude Code 的 skills 目录：
 
 ```bash
-git clone https://github.com/maotuxu-rgb/contract-claim-basis.git ~/.claude/skills/contract-claim-basis
+git clone https://github.com/maotuxu-rgb/contract-claim-basis.git ~/.claude/skills/claim-basis
 ```
 
 安装完成后，当你向 Claude Code 提出合同纠纷分析问题时，技能将自动触发。
@@ -334,7 +334,7 @@ git clone https://github.com/maotuxu-rgb/contract-claim-basis.git ~/.claude/skil
 ## &#128193; 项目结构
 
 ```
-contract-claim-basis/
+claim-basis/
   SKILL.md              -- 导航层（分析框架 + 请求权基础总索引 + 路由表 + 竞合规则）
   CLAUDE.md             -- 项目说明
   references/

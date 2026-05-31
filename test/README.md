@@ -1,6 +1,6 @@
 # 评估体系说明
 
-本目录包含 `contract-claim-basis` 技能的评估场景，用于检验 SKILL.md 修改前后技能效果是否达标。
+本目录包含 `claim-basis` 技能的评估场景，用于检验 SKILL.md 修改前后技能效果是否达标。
 
 ## 目录结构
 
@@ -21,7 +21,7 @@ test/
 
 目前无自动运行机制。每次评估按以下步骤手动执行：
 
-1. 加载 `contract-claim-basis` 技能（新建对话，确保技能已激活）
+1. 加载 `claim-basis` 技能（新建对话，确保技能已激活）
 2. 将 `.json` 文件中 `query` 字段的内容原文输入 Claude
 3. 对照同名 `-ref.md` 文件中的分析路径，检查 Claude 输出是否满足 `expected_behavior` 中的各项过程性标准
 4. 记录未满足的项目，作为 SKILL.md 迭代改进的依据
