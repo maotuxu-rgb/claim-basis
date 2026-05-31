@@ -344,6 +344,8 @@ contract-claim-basis/
     ref-contract-claims.md      -- 合同编通则/典型合同 + 准合同目录
     ref-property-rights.md      -- 物权编请求权基础（返还原物/占有/善意取得）
     ref-tort-liability.md       -- 侵权编请求权基础（过错/数人侵权/损害赔偿）
+    ref-damages-calculation.md  -- 损害赔偿计算方法论（替代交易/抽象·具体计算/人身·精神损害）
+    ref-concurrence.md          -- 请求权竞合处理（规范竞合/真正竞合/聚合三分·择一后果·禁止重复受偿）
     ref-contracting-construction.md  -- 承揽 + 建设工程合同条文
     ref-transport.md            -- 运输合同条文
     ref-technology.md           -- 技术合同条文

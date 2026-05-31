@@ -10,6 +10,8 @@ Claude Code custom skill for structured claim-basis (Anspruchsgrundlage) analysi
   - `ref-contract-claims.md` — Contract Book + quasi-contract catalog (general provisions, sale/lease/loan/suretyship)
   - `ref-property-rights.md` — Property Book catalog (real-rights protection, good-faith acquisition, possession)
   - `ref-tort-liability.md` — Tort Book catalog (general/special torts, joint tort liability, damages)
+  - `ref-damages-calculation.md` — Damages quantification methodology (履行/信赖/固有利益、替代交易抽象vs具体计算、合同编通则解释60-62、人身/精神损害)
+  - `ref-concurrence.md` — Authoritative concurrence handling (规范竞合/请求权竞合/请求权聚合三分、违约vs侵权择一门槛与后果、禁止重复受偿)
   - `ref-*.md` — Contract-type-specific provisions (contracting, transport, technology, agency, storage, others)
   - `ref-case-examples.md` — Worked scenario analyses
   - `report-template.md` — Structured report template
