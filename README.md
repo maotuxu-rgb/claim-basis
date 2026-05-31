@@ -48,7 +48,7 @@
 将本仓库克隆到 Claude Code 的 skills 目录：
 
 ```bash
-git clone https://github.com/maotuxu-rgb/contract-claim-basis.git ~/.claude/skills/claim-basis
+git clone https://github.com/maotuxu-rgb/claim-basis.git ~/.claude/skills/claim-basis
 ```
 
 安装完成后，当你向 Claude Code 提出合同纠纷分析问题时，技能将自动触发。
