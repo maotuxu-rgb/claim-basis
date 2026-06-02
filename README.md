@@ -25,7 +25,7 @@
 <h3 align="center">&#10024; 这个 Skill 帮你系统解决以上问题。</h3>
 
 <p align="center">
-基于请求权基础（Anspruchsgrundlage）方法论的 <strong>结构化分析框架</strong> + <strong>18 类规范分类体系</strong> + <strong>2,772 个条文标注</strong>
+基于请求权基础（Anspruchsgrundlage）方法论的 <strong>结构化分析框架</strong> + <strong>18 类规范分类体系</strong> + <strong>约 3,681 处规范类型标注</strong>
 </p>
 
 <p align="center">
@@ -353,7 +353,7 @@ claim-basis/
     ref-storage-warehouse.md    -- 保管 + 仓储合同条文
     ref-others.md               -- 融资租赁/保理/物业/合伙/供用电/赠与条文
   source/
-    annotated-code.md   -- 民法典全编规范类型标注（25,915行，2,772个标注）
+    annotated-code.md   -- 民法典全编规范类型标注（25,925行，约 3,681 处标注）
   test/
     eval-01 ~ eval-04   -- 评估场景（JSON + 参考分析路径）
 ```

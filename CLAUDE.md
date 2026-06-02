@@ -15,7 +15,7 @@ Claude Code custom skill for structured claim-basis (Anspruchsgrundlage) analysi
   - `ref-*.md` — Contract-type-specific provisions (contracting, transport, technology, agency, storage, others)
   - `ref-case-examples.md` — Worked scenario analyses
   - `report-template.md` — Structured report template
-- `source/annotated-code.md` — Full Civil Code text with 2,772 norm-type annotations (25,915 lines)
+- `source/annotated-code.md` — Full Civil Code text with ~3,681 norm-type annotations (25,925 lines)
 - `test/` — 4 evaluation scenarios with reference analysis paths
 
 ## Usage
@@ -69,7 +69,7 @@ Run evaluations with the scenarios in `test/`. See `test/README.md` for the eval
 
 ### 4. source 数据清洗与规范化（待办）
 
-**现状**：`source/annotated-code.md`（约 2.7 万行）格式偏乱，影响上层所有 reference 与检索准确性。属底层数据质量问题，优先级不低。
+**现状**：`source/annotated-code.md`（约 2.6 万行）格式偏乱，影响上层所有 reference 与检索准确性。属底层数据质量问题，优先级不低。
 
 **计划要点**：
 - **统一格式**：条文编号、`〈规范类型〉` 标注、`「关联条文」`、`a/b` 子项等的排版规则统一。
