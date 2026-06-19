@@ -1,4 +1,8 @@
-# claim-basis
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## What this is
 
 Claude Code custom skill for structured claim-basis (Anspruchsgrundlage) analysis under the Chinese Civil Code. Originally scoped to the Contract Book (Articles 463–988), now also covers the **Property Book** (返还原物、占有保护、善意取得、占有回复) and the **Tort Liability Book** (过错/无过错侵权、数人侵权、第三人侵害债权、损害赔偿计算), plus quasi-contract (无因管理、不当得利) and related General-Part rules (第157条等).
 
@@ -16,7 +20,7 @@ Claude Code custom skill for structured claim-basis (Anspruchsgrundlage) analysi
   - `ref-case-examples.md` — Worked scenario analyses
   - `report-template.md` — Structured report template
 - `source/annotated-code.md` — Full Civil Code text with ~3,681 norm-type annotations (25,925 lines)
-- `test/` — 4 evaluation scenarios with reference analysis paths
+- `test/` — 7 evaluation scenarios with reference analysis paths (合同 4 + 物权 1 + 侵权·反向题 1 + 担保 1)
 
 ## Usage
 
@@ -24,7 +28,26 @@ This skill activates automatically in Claude Code when a user asks about civil d
 
 ## Development
 
-Run evaluations with the scenarios in `test/`. See `test/README.md` for the evaluation methodology.
+This is a **pure Markdown skill repo** — there is no build step, no dependencies, no linter, and no automated test runner. "Development" means editing `SKILL.md` and the `references/`, then validating the change against the evals in `test/`.
+
+### Running an eval (manual, no harness)
+
+Evals are run by hand in a **fresh conversation** with the skill loaded — there is no script:
+
+1. Start a new session and let the `claim-basis` skill activate.
+2. Paste the `query` field from a `test/eval-NN-*.json` file verbatim.
+3. Compare the output against the same-numbered `test/eval-NN-*-ref.md`, checking every item in the JSON's `expected_behavior`.
+
+After editing `SKILL.md`, run **Eval-03 first** (basic flow), then **Eval-04** (参引/跨类), then **Eval-01 / Eval-02** (hardest). See `test/README.md` for the difficulty matrix. Note: self-running evals in a hot, skill-loaded session is "open-book" and over-optimistic — true regression checks need a clean session and ideally a blind judge (`darwin-skill` or an independent agent).
+
+## Editing invariants (do not violate)
+
+These are hard constraints, distilled from past mistakes — they override convenience:
+
+- **Never invent statute or judicial-interpretation text from memory.** The repo had a real incident hallucinating 担保制度司法解释 article numbers. Any article number, wording, or 司法解释 citation must be grounded in `source/annotated-code.md` or an authoritative source actually present in the repo. If the source isn't in the repo, say so and mark it "需另行查证" rather than guessing.
+- **`source/annotated-code.md` is the ground truth.** When touching it, change *formatting only* — never alter the substance of statutory text or the `〈规范类型〉` annotations. Commit in small, `git diff`-verifiable steps.
+- **`SKILL.md` is a lean navigation layer, not a content dump.** New claim-basis detail belongs in a `references/ref-*.md` file reachable via the §三 routing table, not inline in `SKILL.md`.
+- **Report output is template-bound.** Full analyses must follow `references/report-template.md` (read it before writing); see SKILL.md §0.
 
 ## Roadmap / 待办（已知缺口与日后计划）
 
@@ -51,7 +74,7 @@ Run evaluations with the scenarios in `test/`. See `test/README.md` for the eval
 
 **已识别的不足**：
 1. **覆盖结构性缺失**：物权（善意取得311、占有保护462 vs 所有权235、占有回复458-461、添附322）、侵权（特殊侵权·过错推定/无过错、责任成立→范围两阶层、公平责任边界1186、数人侵权1168-1172）、损害赔偿计算、担保（指导案例168号）均**无 eval**——而其中多数已有现成 reference 与案例范式（5.4-5.8）可直接转化。
-2. **Eval-01 数据自相矛盾**：`query` 写"总价 300 万元"单份合同，`ref.md` 却按"153万+147万 两份合同"展开 → 需对齐修复。
+2. ~~**Eval-01 数据自相矛盾**：`query` 写"总价 300 万元"单份合同，`ref.md` 却按"153万+147万 两份合同"展开 → 需对齐修复。~~ **（2026-06-19 已修复：统一为单份合同 300 万元，改 `ref.md` 要件3及合同名、改 `.json` expected_behavior 第4条；另发现并修复 Eval-01 `query` 因 ASCII 直引号导致 JSON 无法解析的问题，改全角引号，四个 `.json` 现均可程序解析。）**
 3. **"剧本式"评分**：`expected_behavior` 固化单一路径，可能奖励复述、惩罚"结论正确但路径不同"，测的是方法符合度而非法律正确性。
 4. **无合格线/权重**：README 未定义几项算过、未区分核心项与加分项。
 5. **自评不可靠 + 无自动化**：易出现"出题人即阅卷人"偏向。
@@ -61,8 +84,8 @@ Run evaluations with the scenarios in `test/`. See `test/README.md` for the eval
 9. **易腐**：ref 写死 reference 结构；`skills` 字段曾错为 `contract-claim-basis`（已修为 `claim-basis`）。
 
 **下次改动计划（按优先级）**：
-- **高**：①修 Eval-01 的 300万/153万矛盾；②给 4 个现有 eval 各加一条 `expected_behavior`——"输出须遵循 report-template 结构"；③在 `test/README.md` 定义合格线 + 核心项/加分项区分。
-- **中（补覆盖，从现成案例转化）**：Eval-05 物权·善意取得（由案例5.5）；Eval-06 侵权·特殊侵权+公平责任边界（由案例5.4/5.6）；Eval-07 担保·指导案例168号（由案例5.8）；视情补占有保护 vs 所有权返还、损害赔偿抽象/具体计算各一题。目标：精选补到 8-10 个，每大类至少 1 题（不盲目堆量，质量优先）。
+- ~~**高**：①修 Eval-01 的 300万/153万矛盾；②给 4 个现有 eval 各加一条 `expected_behavior`——"输出须遵循 report-template 结构"；③在 `test/README.md` 定义合格线 + 核心项/加分项区分。~~ **（2026-06-19 三项全部完成：①见上文不足#2；②四个 `.json` 末条均已加模板合规检查；③`test/README.md` 已定义核心项C/加分项B/模板合规T 三类判定标准与"不合格/合格/良好"三级合格线，并强调"测法律正确性而非逐字复述"以纠"剧本式评分"。下一步进入"中"优先级补覆盖。）**
+- ~~**中（补覆盖，从现成案例转化）**：Eval-05 物权·善意取得（由案例5.5）；Eval-06 侵权·特殊侵权+公平责任边界（由案例5.4/5.6）；Eval-07 担保·指导案例168号（由案例5.8）~~ **（2026-06-19 已落地三题，eval 总数 4→7，物权/侵权/担保三大编零覆盖缺口已补齐：Eval-05 物权·不动产善意取得[5.5]；Eval-06 侵权·公平责任边界[取 5.6 电梯劝烟案，做成反向题，考第1186非独立请求权基础]；Eval-07 担保·指导案例168号[5.8，刻意仅走民法典条文路径、不碰担保解释条号，呼应 §1 戒律]。）** 仍待补（视情）：①案例5.4 喂猴案（特殊侵权第1248过错推定 + 违约竞合 + 监护过失 + 精神损害）；②占有保护 vs 所有权返还；③损害赔偿抽象/具体计算各一题。目标：精选补到 8-10 个，每大类至少 1 题（不盲目堆量，质量优先）。
 - **低（治本）**：加 1-2 道触发/反向题（防误触发、请求权不成立）；探索轻量自动化或固定由 `darwin-skill`/独立 agent 盲评，摆脱自评偏向。
 
 > **附：本轮自测结果（热环境，仅供参考）**——Eval-03/04/01/02 在已装载 skill + 讨论上下文中手动跑，`expected_behavior` 全项通过、ref 缺陷清单 0 踩坑、模板合规。但属"开卷+自评"，偏乐观，不代表干净新会话下的真实表现；真回归须另开会话单跑 + 独立盲评。
