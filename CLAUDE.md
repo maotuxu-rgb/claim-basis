@@ -22,7 +22,7 @@ The analysis framework and the `〈规范类型〉` annotation system derive fro
   - `ref-case-examples.md` — Worked scenario analyses
   - `report-template.md` — Structured report template
 - `source/annotated-code.md` — Full Civil Code text with ~3,681 norm-type annotations (25,925 lines)
-- `source/interpretations/` — Verbatim judicial-interpretation texts, each with a provenance header (文号/施行日期/来源/保真声明); grounding source for any 司法解释 citation. Currently: 合同编通则解释 (法释〔2023〕13号). **Never annotate or reformat the body text here; byte-identical to the authoritative source.**
+- `source/interpretations/` — Verbatim judicial-interpretation texts, each with a provenance header (文号/施行日期/来源/保真声明); grounding source for any 司法解释 citation. Currently: 合同编通则解释 (法释〔2023〕13号)、担保制度解释 (法释〔2020〕28号). **Never annotate or reformat the body text here; byte-identical to the authoritative source.**
 - `test/` — 10 evaluation scenarios with reference analysis paths (合同 4 + 物权 2 + 侵权 2〔含反向题〕 + 担保 1 + 损害赔偿计算 1)
 
 ## Usage
@@ -56,9 +56,11 @@ These are hard constraints, distilled from past mistakes — they override conve
 
 ## Roadmap / 待办（已知缺口与日后计划）
 
-### 1. 担保物权专项 reference（`ref-security-rights.md`，待制作）
+### 1. 担保物权专项 reference（`ref-security-rights.md`，待制作——前置法源已就位）
 
-**现状缺口**：本 skill 目前缺少担保领域的专门 reference。担保物权（抵押/质押/留置）与保证的**法条骨架**在 `source/annotated-code.md`（民法典担保物权编第386–457条、保证合同第681–702条，含规范类型标注），但**裁判操作规则大量沉淀在《民法典担保制度司法解释》(法释〔2020〕28号，71条) 与九民纪要（担保部分 §31–58）**，而这两份**原文目前不在仓库**，仅在标注的"关联条文"中被编号提及。
+**现状缺口**：本 skill 目前缺少担保领域的专门 reference。担保物权（抵押/质押/留置）与保证的**法条骨架**在 `source/annotated-code.md`（民法典担保物权编第386–457条、保证合同第681–702条，含规范类型标注），裁判操作规则大量沉淀在《民法典担保制度司法解释》与九民纪要（担保部分 §31–58）。
+
+**进展（2026-07-08）**：《担保制度解释》(法释〔2020〕28号，71条) 原文已入库 `source/interpretations/担保制度解释(法释2020-28).md`（逐字节保真+文号官网核验）——**下方"计划路径"第 1 步的解释部分已完成**，可直接按第 1 步撰写完整 reference（引用条文时逐条对照入库原文，无需再走第 2 步"骨架版"过渡方案）。九民纪要原文仍不在仓库，涉及其内容时仍标"需另行查证"。
 
 **风险提示（来自实战教训）**：曾在分析指导案例168号时**凭记忆"复述"担保解释条文，结果条号/措辞不可靠（幻觉）**。故制作本 reference 的**前置条件**是先补权威法源，不得凭记忆杜撰司法解释条文。
 
@@ -111,7 +113,7 @@ These are hard constraints, distilled from past mistakes — they override conve
 
 **优先级**：担保制度解释（法释〔2020〕28号）> 合同编通则解释 > 总则编解释 > 各分则解释（买卖、租赁等）。
 
-**进展（2026-07-08）**：①《合同编通则解释》原文已入库 `source/interpretations/合同编通则解释(法释2023-13).md`（逐字节保真 + 溯源头注，文号经最高法官网核验），并据原文订正了 `ref-damages-calculation.md` 两处实质转述偏差（第62条"酌定+参考因素"曾被误写为"以获利为赔偿额+故意/重大过失门槛"；第61条"替代交易合理期限"规则欠精确）——印证"严禁凭转述/记忆"戒律。②用户法条库（`/Users/xushukai/Documents/Llm-wiki(prep)/法考/raw/法条库/`）已备有**担保制度解释、总则编解释、时间效力规定、物权/侵权/婚家/继承各编解释（一）及民法典全文**，可按同一收录流程（验完整性→核文号→逐字节入库→对照订正相关 ref）继续；**§1 的前置条件（补担保法源）已解除**。
+**进展（2026-07-08）**：①《合同编通则解释》原文已入库 `source/interpretations/合同编通则解释(法释2023-13).md`（逐字节保真 + 溯源头注，文号经最高法官网核验），并据原文订正了 `ref-damages-calculation.md` 两处实质转述偏差（第62条"酌定+参考因素"曾被误写为"以获利为赔偿额+故意/重大过失门槛"；第61条"替代交易合理期限"规则欠精确）——印证"严禁凭转述/记忆"戒律。②《担保制度解释》(法释〔2020〕28号，71条) 已按同一流程入库（见 §1 进展）。③用户法条库（`/Users/xushukai/Documents/Llm-wiki(prep)/法考/raw/法条库/`）还备有**总则编解释、时间效力规定、物权/侵权/婚家/继承各编解释（一）及民法典全文**，可按同一收录流程（验完整性→核文号→逐字节入库→对照订正相关 ref）继续，建议下一个收录**时间效力规定**（补溯及力缺口）与**总则编解释**。
 
 **方法（沿用现有标注法，避免两个坑）**：
 - **不贴全文**：仅抽取"可作请求权基础/抗辩"的条款，做 `〈规范类型〉` 标注，其余略，防止撑爆 context、稀释信噪比。
