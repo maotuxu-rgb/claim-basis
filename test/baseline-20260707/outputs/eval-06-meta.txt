@@ -1,0 +1,8 @@
+model: claude-sonnet-5
+skill_invoked: claim-basis
+leak_check(读过test/答案则该题作废): 通过
+files_read:
+  - /Users/xushukai/.claude/skills/claim-basis/references/ref-tort-liability.md
+  - /Users/xushukai/.claude/skills/claim-basis/references/ref-case-examples.md
+  - /Users/xushukai/.claude/skills/claim-basis/references/report-template.md
+  - /Users/xushukai/.claude/skills/claim-basis/references/ref-concurrence.md
