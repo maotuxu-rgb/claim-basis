@@ -16,6 +16,7 @@ The analysis framework and the `〈规范类型〉` annotation system derive fro
   - `ref-contract-claims.md` — Contract Book + quasi-contract catalog (general provisions, sale/lease/loan/suretyship)
   - `ref-property-rights.md` — Property Book catalog (real-rights protection, good-faith acquisition, possession)
   - `ref-tort-liability.md` — Tort Book catalog (general/special torts, joint tort liability, damages)
+  - `ref-security-rights.md` — Security catalog (抵押/质押/留置、保证与保证期间、公司对外担保、混合担保追偿、未登记违约赔偿、让与担保等非典型担保; grounded in annotated-code + 担保解释 verbatim source)
   - `ref-damages-calculation.md` — Damages quantification methodology (履行/信赖/固有利益、替代交易抽象vs具体计算、合同编通则解释60-62、人身/精神损害)
   - `ref-concurrence.md` — Authoritative concurrence handling (规范竞合/请求权竞合/请求权聚合三分、违约vs侵权择一门槛与后果、禁止重复受偿)
   - `ref-*.md` — Contract-type-specific provisions (contracting, transport, technology, agency, storage, others)
@@ -56,11 +57,11 @@ These are hard constraints, distilled from past mistakes — they override conve
 
 ## Roadmap / 待办（已知缺口与日后计划）
 
-### 1. 担保物权专项 reference（`ref-security-rights.md`，待制作——前置法源已就位）
+### 1. 担保物权专项 reference（`ref-security-rights.md`，✅ 初版已完成 2026-07-08，待 Eval-07 回归校验）
 
 **现状缺口**：本 skill 目前缺少担保领域的专门 reference。担保物权（抵押/质押/留置）与保证的**法条骨架**在 `source/annotated-code.md`（民法典担保物权编第386–457条、保证合同第681–702条，含规范类型标注），裁判操作规则大量沉淀在《民法典担保制度司法解释》与九民纪要（担保部分 §31–58）。
 
-**进展（2026-07-08）**：《担保制度解释》(法释〔2020〕28号，71条) 原文已入库 `source/interpretations/担保制度解释(法释2020-28).md`（逐字节保真+文号官网核验）——**下方"计划路径"第 1 步的解释部分已完成**，可直接按第 1 步撰写完整 reference（引用条文时逐条对照入库原文，无需再走第 2 步"骨架版"过渡方案）。九民纪要原文仍不在仓库，涉及其内容时仍标"需另行查证"。
+**进展（2026-07-08）**：①《担保制度解释》(法释〔2020〕28号，71条) 原文已入库 `source/interpretations/担保制度解释(法释2020-28).md`（逐字节保真+文号官网核验）。②**`ref-security-rights.md` 完整版初稿已完成**并接入 SKILL.md §二/§三路由：民法典条文标注照录 source，担保解释条文标注以 `*` 显式区分为作者新增；覆盖通则（从属性/无效三档赔偿17条/公司担保7-12条/混合与共同担保13·18·20条）、抵押（设立/未登记46条三款/流转/顺位与PMSI）、质权（监管协议55条/权利质权61条）、留置、保证（方式识别25·36条/先诉抗辩/保证期间体系/抗辩与追偿）、非典型担保（让与担保68条等），附两个四步审查范式与竞合提示。九民纪要原文仍不在仓库，涉及处已标"需另行查证"。③**待办**：同步安装副本后跑 Eval-07（及 Eval-10）回归对照基线；随权威案例补充范式（计划路径第3步）。
 
 **风险提示（来自实战教训）**：曾在分析指导案例168号时**凭记忆"复述"担保解释条文，结果条号/措辞不可靠（幻觉）**。故制作本 reference 的**前置条件**是先补权威法源，不得凭记忆杜撰司法解释条文。
 
