@@ -6,6 +6,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 Claude Code custom skill for structured claim-basis (Anspruchsgrundlage) analysis under the Chinese Civil Code. Originally scoped to the Contract Book (Articles 463–988), now also covers the **Property Book** (返还原物、占有保护、善意取得、占有回复) and the **Tort Liability Book** (过错/无过错侵权、数人侵权、第三人侵害债权、损害赔偿计算), plus quasi-contract (无因管理、不当得利) and related General-Part rules (第157条等).
 
+The analysis framework and the `〈规范类型〉` annotation system derive from 吴香香's Anspruchsgrundlage methodology (《民法典请求权基础——方法、体系与实例》等，见 `README.md` 方法论来源). The annotations are the author's own understanding, not the original author's positions — README's disclaimer applies. Licensed CC BY-NC-SA 4.0.
+
 ## Structure
 
 - `SKILL.md` — Lean navigation layer: analysis framework, claim-basis index, **reference routing table**, concurrence rules
@@ -20,6 +22,7 @@ Claude Code custom skill for structured claim-basis (Anspruchsgrundlage) analysi
   - `ref-case-examples.md` — Worked scenario analyses
   - `report-template.md` — Structured report template
 - `source/annotated-code.md` — Full Civil Code text with ~3,681 norm-type annotations (25,925 lines)
+- `source/interpretations/` — Verbatim judicial-interpretation texts, each with a provenance header (文号/施行日期/来源/保真声明); grounding source for any 司法解释 citation. Currently: 合同编通则解释 (法释〔2023〕13号). **Never annotate or reformat the body text here; byte-identical to the authoritative source.**
 - `test/` — 10 evaluation scenarios with reference analysis paths (合同 4 + 物权 2 + 侵权 2〔含反向题〕 + 担保 1 + 损害赔偿计算 1)
 
 ## Usage
@@ -38,7 +41,9 @@ Evals are run by hand in a **fresh conversation** with the skill loaded — ther
 2. Paste the `query` field from a `test/eval-NN-*.json` file verbatim.
 3. Compare the output against the same-numbered `test/eval-NN-*-ref.md`, checking every item in the JSON's `expected_behavior`.
 
-After editing `SKILL.md`, run **Eval-03 first** (basic flow), then **Eval-04** (参引/跨类), then **Eval-01 / Eval-02** (hardest). See `test/README.md` for the difficulty matrix. Note: self-running evals in a hot, skill-loaded session is "open-book" and over-optimistic — true regression checks need a clean session and ideally a blind judge (`darwin-skill` or an independent agent).
+After editing `SKILL.md`, run **Eval-03 first** (basic flow), then **Eval-04** (参引/跨类), then **Eval-01 / Eval-02** (hardest). When touching a domain-specific reference, run that domain's evals instead: 物权 → Eval-05/09；侵权 → Eval-06（反向题：请求权**不**成立）/08；担保 → Eval-07；损害赔偿计算 → Eval-10. See `test/README.md` for the difficulty matrix.
+
+Grading (defined in `test/README.md`): each `expected_behavior` item is 核心项 C / 加分项 B / 模板合规 T. Any failed C **or** failed T → 不合格; all C+T pass and B ≥ 70% → 合格. Judge legal correctness and methodology, not verbatim match with the `-ref.md` path. Note: self-running evals in a hot, skill-loaded session is "open-book" and over-optimistic — true regression checks need a clean session and ideally a blind judge (`darwin-skill` or an independent agent).
 
 ## Editing invariants (do not violate)
 
@@ -68,19 +73,19 @@ These are hard constraints, distilled from past mistakes — they override conve
 
 `SKILL.md §0` 已将"按 `references/report-template.md` 结构输出"设为强制约束（先 Read 模板再写、四段式齐全、附引用规范表）。后续评估时应抽查输出是否真正遵循模板，而非自创表格式排版。
 
-### 3. 评估体系（`test/`）的扩充与完善（待办）
+### 3. 评估体系（`test/`）的扩充与完善（高/中优先项已完成，低优先项待办）
 
-**现状**：仅 4 个 eval，全部集中在合同编（买卖瑕疵、租赁返还、撤销返还、违约方解除），无自动化、靠人工跑。skill 已扩至物权编/侵权编/准合同/担保，但评估未跟上 → 这些领域改动时无回归保护。
+**现状（2026-07-07 更新）**：eval 已从最初 4 题（全合同编）扩至 **10 题**——合同 4 + 物权 2 + 侵权 2（含反向题）+ 担保 1 + 损害赔偿计算 1，每大类≥1 题；`test/README.md` 已定义 C/B/T 判定标准与三级合格线。剩余缺口：无自动化、靠人工跑、自评偏向，缺防误触发/干扰稳健性题（见下方"低"优先项）。
 
 **已识别的不足**：
-1. **覆盖结构性缺失**：物权（善意取得311、占有保护462 vs 所有权235、占有回复458-461、添附322）、侵权（特殊侵权·过错推定/无过错、责任成立→范围两阶层、公平责任边界1186、数人侵权1168-1172）、损害赔偿计算、担保（指导案例168号）均**无 eval**——而其中多数已有现成 reference 与案例范式（5.4-5.8）可直接转化。
+1. ~~**覆盖结构性缺失**：物权（善意取得311、占有保护462 vs 所有权235、占有回复458-461、添附322）、侵权（特殊侵权·过错推定/无过错、责任成立→范围两阶层、公平责任边界1186、数人侵权1168-1172）、损害赔偿计算、担保（指导案例168号）均**无 eval**——而其中多数已有现成 reference 与案例范式（5.4-5.8）可直接转化。~~ **（2026-06-19 已解决：Eval-05~10 落地，详见下方"中"优先项注记。）**
 2. ~~**Eval-01 数据自相矛盾**：`query` 写"总价 300 万元"单份合同，`ref.md` 却按"153万+147万 两份合同"展开 → 需对齐修复。~~ **（2026-06-19 已修复：统一为单份合同 300 万元，改 `ref.md` 要件3及合同名、改 `.json` expected_behavior 第4条；另发现并修复 Eval-01 `query` 因 ASCII 直引号导致 JSON 无法解析的问题，改全角引号，四个 `.json` 现均可程序解析。）**
 3. **"剧本式"评分**：`expected_behavior` 固化单一路径，可能奖励复述、惩罚"结论正确但路径不同"，测的是方法符合度而非法律正确性。
-4. **无合格线/权重**：README 未定义几项算过、未区分核心项与加分项。
+4. ~~**无合格线/权重**：README 未定义几项算过、未区分核心项与加分项。~~ **（2026-06-19 已解决：`test/README.md` 已定义核心项C/加分项B/模板合规T 与三级合格线。）**
 5. **自评不可靠 + 无自动化**：易出现"出题人即阅卷人"偏向。
-6. **缺反向/陷阱题**：无"请求权不成立""防误触发（刑事/行政）""干扰事实稳健性"类测试。
+6. **缺反向/陷阱题**：无"请求权不成立""防误触发（刑事/行政）""干扰事实稳健性"类测试。**（部分解决：Eval-06 即"请求权不成立"反向题；防误触发、干扰稳健性题仍缺。）**
 7. **依赖题外假设**：如 Eval-03 时效"未届满（假设）"等事实未写入 query。
-8. **模板合规无人检验**：§0 模板约束未被任何 `expected_behavior` 检查。
+8. ~~**模板合规无人检验**：§0 模板约束未被任何 `expected_behavior` 检查。~~ **（2026-06-19 已解决：每个 `.json` 末条均为模板合规检查项。）**
 9. **易腐**：ref 写死 reference 结构；`skills` 字段曾错为 `contract-claim-basis`（已修为 `claim-basis`）。
 
 **下次改动计划（按优先级）**：
@@ -100,11 +105,13 @@ These are hard constraints, distilled from past mistakes — they override conve
 - **可选结构化**：为每条增加可解析标记（如稳定的条文 ID、字段分隔），便于将来程序化检索，并呼应 §7 的 JSON 架构。
 - **保真铁律**：只动格式，**不得改动法条原文与规范类型标注的实质内容**；用 git diff 分步可核验，小步提交。
 
-### 5. 重要司法解释 reference 体系（待办，§1 的扩展）
+### 5. 重要司法解释 reference 体系（进行中，§1 的扩展）
 
 **范围**：不止担保解释（§1 已列），还应纳入其他高频司法解释。
 
 **优先级**：担保制度解释（法释〔2020〕28号）> 合同编通则解释 > 总则编解释 > 各分则解释（买卖、租赁等）。
+
+**进展（2026-07-08）**：①《合同编通则解释》原文已入库 `source/interpretations/合同编通则解释(法释2023-13).md`（逐字节保真 + 溯源头注，文号经最高法官网核验），并据原文订正了 `ref-damages-calculation.md` 两处实质转述偏差（第62条"酌定+参考因素"曾被误写为"以获利为赔偿额+故意/重大过失门槛"；第61条"替代交易合理期限"规则欠精确）——印证"严禁凭转述/记忆"戒律。②用户法条库（`/Users/xushukai/Documents/Llm-wiki(prep)/法考/raw/法条库/`）已备有**担保制度解释、总则编解释、时间效力规定、物权/侵权/婚家/继承各编解释（一）及民法典全文**，可按同一收录流程（验完整性→核文号→逐字节入库→对照订正相关 ref）继续；**§1 的前置条件（补担保法源）已解除**。
 
 **方法（沿用现有标注法，避免两个坑）**：
 - **不贴全文**：仅抽取"可作请求权基础/抗辩"的条款，做 `〈规范类型〉` 标注，其余略，防止撑爆 context、稀释信噪比。
@@ -140,4 +147,4 @@ These are hard constraints, distilled from past mistakes — they override conve
 
 ---
 
-> **Roadmap 推进优先级建议**：1（担保 reference，需先补法源）与 3 高优先项（修 Eval-01、加模板检查、定合格线）可即刻做；4（source 清洗）为底层基础，宜尽早；5/6 持续补充；7 先做指令版小规模验证再决定是否工程化。
+> **Roadmap 推进优先级建议**：3 的高/中优先项已完成（10 题 + 合格线），仅剩"低"项（防误触发题、盲评自动化）；1（担保 reference，需先补法源）可即刻做；4（source 清洗）为底层基础，宜尽早；5/6 持续补充；7 先做指令版小规模验证再决定是否工程化。
